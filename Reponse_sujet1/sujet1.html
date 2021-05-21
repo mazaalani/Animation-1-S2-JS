@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exercice 5, sujet 1</title>
+    <style>
+      html {
+        background-color: aquamarine;
+      }
+      body {
+        margin: 20px auto;
+        padding-top: 20px;
+        width: 800px;
+        height: 300px;
+        background-color: white;
+      }
+      #rond {
+        position: relative;
+        margin: 20px 0;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-image: linear-gradient(aqua 50%, firebrick 50%);
+      }
+      .vaEtVient {
+        animation-name: vaEtVient;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+      }
+      @keyframes vaEtVient {
+        0% {
+          left: 0;
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(360deg);
+        }
+        50% {
+          left: calc(800px - 200px);
+          transform: rotate(720deg);
+        }
+        75% {
+          transform: rotate(360deg);
+        }
+        100% {
+          left: 0;
+          transform: rotate(0deg);
+        }
+      }
+    </style>
+
+    <script type="module">
+      let eRond = document.getElementById("rond");
+      let eDemarrer = document.getElementById("demarrer");
+      let eArreter = document.getElementById("arreter");
+      let eReprendre = document.getElementById("reprendre");
+
+      // gestion de l'animation : déclenchement/arrêt
+      // ============================================
+      eDemarrer.addEventListener("click", () => {
+        eRond.classList.remove("vaEtVient");
+        eRond.style.animationPlayState = "running";
+        setTimeout(() => eRond.classList.add("vaEtVient"), 20);
+        if (eReprendre.type == "button") eReprendre.type = "hidden";
+        if (eReprendre.type == "hidden") eArreter.type = "button";
+      });
+      eArreter.addEventListener("click", () => {
+        eRond.style.animationPlayState = "paused";
+        eArreter.type = "hidden";
+        eReprendre.type = "button";
+      });
+      eReprendre.addEventListener("click", () => {
+        eRond.style.animationPlayState = "running";
+        eReprendre.type = "hidden";
+        eArreter.type = "button";
+      });
+    </script>
+  </head>
+  <body>
+    <input type="button" id="demarrer" value="Démarrer" />
+    <input type="hidden" id="arreter" value="Arrêter" />
+    <input type="hidden" id="reprendre" value="Reprendre" />
+    <div id="animation">
+      <div id="rond"></div>
+    </div>
+  </body>
+</html>
