@@ -1,3 +1,0 @@
-/*
-  Insérez votre code ici.
-*/
